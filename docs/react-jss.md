@@ -598,7 +598,7 @@ interface Props extends WithSheet<typeof styles, Theme> {
   label: string
   clicked(): void
 }
-const styles = (theme: Theme) => ({
+const styles = (theme: Theme) => createStyles({
   button: {
     color: theme.colorPrimary
   }
@@ -612,6 +612,11 @@ class Button extends React.Component<Props, {}> {
   }
 }
 export default withStyles(styles)(Button)
+
+/** auxiliary function to type check CSS Properties */
+function createStyles<C extends string = string>(styles: { [c: string]: React.CSSProperties }): Styles<C> {
+  return styles as Styles<C>
+}
 ```
 
 `main.tsx`
